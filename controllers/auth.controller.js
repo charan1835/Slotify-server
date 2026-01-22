@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import Otp from "../models/Otp.js";
 import jwt from "jsonwebtoken";
+import { sendOtpEmail } from "../utils/emailService.js";
 
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET || "default_secret", {
@@ -27,10 +28,15 @@ export const sendOtp = async (req, res) => {
             expiresAt,
         });
 
-        // SIMULATION: Log OTP to console instead of emailing
-        console.log(`🔐 OTP for ${email}: ${otpCode}`);
+        // Send OTP via Email
+        const emailResult = await sendOtpEmail(email, otpCode);
 
-        res.status(200).json({ message: "OTP sent successfully" });
+        if (emailResult.success) {
+            res.status(200).json({ message: "OTP sent successfully to your email" });
+        } else {
+            // Email failed but OTP is logged to console as fallback
+            res.status(200).json({ message: "OTP generated (check console for development)" });
+        }
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
