@@ -10,6 +10,8 @@ import vendorRoutes from "./routes/vendor.routes.js";
 import bookingRoutes from "./routes/booking.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import paymentRoutes from "./routes/payment.routes.js";
+import adminRoutes from "./routes/admin.routes.js";
+import eventRoutes from "./routes/event.routes.js";
 
 connectDB();
 
@@ -41,6 +43,8 @@ app.use("/vendors", vendorRoutes);
 app.use("/bookings", bookingRoutes);
 app.use("/auth", authRoutes);
 app.use("/payments", paymentRoutes);
+app.use("/admin", adminRoutes);
+app.use("/events", eventRoutes);
 
 app.get("/", (req, res) => {
     res.send("Slotify API running 🚀");
