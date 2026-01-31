@@ -12,6 +12,7 @@ import authRoutes from "./routes/auth.routes.js";
 import paymentRoutes from "./routes/payment.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 import eventRoutes from "./routes/event.routes.js";
+import notificationRoutes from "./routes/notification.routes.js"; // Import notification routes
 
 connectDB();
 
@@ -45,6 +46,7 @@ app.use("/auth", authRoutes);
 app.use("/payments", paymentRoutes);
 app.use("/admin", adminRoutes);
 app.use("/events", eventRoutes);
+app.use("/notifications", notificationRoutes); // Use notification routes
 
 app.get("/", (req, res) => {
     res.send("Slotify API running 🚀");
